@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block title %}Chatrooms{% endblock%}
+
+{% block script %}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script src=" {{ url_for('static', filename='chat.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+<h1>Chatroom Page</h1>
+<ul id="chatroom_list">
+    {% for chatroom in chat_list %}
+    <li><a href="/chat/{{ chatroom['url']}}">{{ chatroom['chatroom_name'] }}</a></li>
+    {% endfor %}
+</ul>
+<br>
+<input type="text" placeholder="Start a new Chatroom" id="chatroom_name">
+<button id="new_chat">New Chat</button>
+
+{% endblock %}
