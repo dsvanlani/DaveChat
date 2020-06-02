@@ -26,12 +26,28 @@ document.addEventListener('DOMContentLoaded', () => {
                   const creator = localStorage.getItem('username')
                   const date_created = new Date()
                   
-                  // emits 'new chatroom' event with data
-                  socket.emit('new chatroom', {
-                  'chatroom_name': chatroom_name,
-                  'creator': creator,
-                  'date_created':date_created});
-                    };
+                  let chat_list = []
+                  
+                  document.querySelectorAll('.chatroom').forEach(chatroom => {
+                      chat_list.push(chatroom.innerText)
+                  });
+                  
+                  if (!chat_list.includes(chatroom_name)) {
+                      // emits 'new chatroom' event with data
+                      socket.emit('new chatroom', {
+                      'chatroom_name': chatroom_name,
+                      'creator': creator,
+                      'date_created':date_created
+                            });
+                  }
+                  else {
+                      alert("Chatroom name is already taken.");
+                      document.querySelector('#chatroom_name').value='';
+                      document.querySelector('button').disabled=true;
+                      
+                  };
+                  
+                };
 
               });
           
@@ -39,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
           socket.on('update chat list', data => {
               
               // appends onto the <ul id="chat_list">
-              document.querySelector('#chatroom_list').innerHTML += `<li> <a href="/chat/${ data.url }"> ${data.chatroom_name} </a></li>`;
+              document.querySelector('#chatroom_list').innerHTML += `<li> <a href="/chat/${ data.url }" class="chatroom"> ${data.chatroom_name} </a></li>`;
               
               // resets the text box and button
               document.querySelector('#chatroom_name').value='';
