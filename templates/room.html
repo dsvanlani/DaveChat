@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block script %}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script src=" {{ url_for('static', filename='room.js') }}"></script>
+{% endblock %}
+
+{% block title %}{{ chatroom_name }}{% endblock %}
+
+{% block body %}
+<h1>{{ chatroom_name }}</h1>
+<h3>Created by {{ creator }} on {{ date_created }}</h3>
+Chat ID:<span id="chat_id">{{ url }}</span>
+<ul id="message_list">
+    {% for message in messages %}
+
+    <li>{{ message['creator'] }} {{ message['time_stamp'] }}: {{ message['content'] }}</li>
+
+    {% endfor %}
+</ul>
+<form id="new_message">
+<input type="text" id="message_box" placeholder="Enter a message">
+<input type="submit" id="enter">
+</form>
+{% endblock %}

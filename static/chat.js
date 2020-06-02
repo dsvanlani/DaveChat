@@ -21,17 +21,19 @@ document.addEventListener('DOMContentLoaded', () => {
           // button click emits a 'new chatroom' event
           document.querySelectorAll('button').forEach(button => {
               button.onclick = () => {
+                  
                   // gets values for chatroom_name, creator, and date_created
                   const chatroom_name = document.querySelector('#chatroom_name').value;
                   const creator = localStorage.getItem('username')
                   const date_created = new Date()
                   
+                  // makes array chat_list containing names of all the chatrooms
                   let chat_list = []
-                  
                   document.querySelectorAll('.chatroom').forEach(chatroom => {
                       chat_list.push(chatroom.innerText)
                   });
                   
+                  // checks that new_chatroom is not already a chatroom name
                   if (!chat_list.includes(chatroom_name)) {
                       // emits 'new chatroom' event with data
                       socket.emit('new chatroom', {

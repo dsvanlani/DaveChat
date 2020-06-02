@@ -25,6 +25,10 @@ class Message:
         self.creator = creator
         self.time_stamp = time_stamp
         self.content = content
+        self.data = [creator, time_stamp, content]
+        self.json = {'creator': creator,
+                     'time_stamp': time_stamp,
+                     'content': content}
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -41,6 +45,16 @@ def index():
 def chat():
     return render_template('chat.html', chat_list=chat_list)
 
+@app.route('/chat/<string:url>')
+def room(url):
+    return render_template('room.html',
+                           chatroom_name=chat_dict[url].chatroom_name,
+                           creator = chat_dict[url].creator,
+                           date_created = chat_dict[url].date_created,
+                           messages = chat_dict[url].messages,
+                           url = url
+                           )
+
 @socketio.on('new chatroom')
 def new_chatroom(data):
     # creates a new Chatroom object
@@ -49,16 +63,27 @@ def new_chatroom(data):
         date_created=data['date_created'],
         chatroom_name=data['chatroom_name'])
 
-    # adds chatroom to the chat_list dictionary
+    # adds chatroom to chat_list and chat_dict
     chat_list.append(chatroom.json)
     chat_dict[chatroom.url] = chatroom
 
     # emits the new chat_list dictionary
     emit("update chat list", chatroom.json, broadcast=True)
 
-@app.route('/chat/<string:url>')
-def room(url):
-    return f' {chat_dict[url].json}'
+@socketio.on('new message')
+def new_message(data):
+    # creates a new Message object
+    message = Message(
+        creator = data['creator'],
+        time_stamp=data['time_stamp'],
+        content=data['content'])
+
+    # adds the message.data to the chatroom messages list
+    obj = chat_dict[data['chatroom_url']]
+    obj.messages.append(message.json)
+
+    emit("update message list", message.json, broadcast=True)
+
 
 # Runs the app in Debug mode
 if __name__ == '__main__':
