@@ -50,9 +50,20 @@ document.addEventListener('DOMContentLoaded', () => {
         };
             
     });
-    
+            // adds new message to the list
     socket.on('update message list', data => {
-        document.querySelector('#message_list').innerHTML += `<li>${ data.creator } ${ data.time_stamp }: ${ data.content }</li>`;
+        document.querySelector('#message_list').innerHTML += `<li class="message">${ data.creator } ${ data.time_stamp }: ${ data.content }</li>`;
+        
+            // checks to see if the length of messages is more than 100
+        
+        const x = []
+        document.querySelectorAll('.message').forEach(element => {
+        x.push(element.innerText);
+        });
+        
+        if (x.length > 100) {
+            document.querySelector('.message').remove();
+        };
         
         document.querySelector('#message_box').value='';
                    document.querySelector('#enter').disabled=true;

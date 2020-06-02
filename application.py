@@ -82,6 +82,10 @@ def new_message(data):
     obj = chat_dict[data['chatroom_url']]
     obj.messages.append(message.json)
 
+    if len(obj.messages) > 100:
+        del obj.messages[0]
+
+
     emit("update message list", message.json, broadcast=True)
 
 

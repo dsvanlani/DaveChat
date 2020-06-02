@@ -14,11 +14,11 @@ Chat ID:<span id="chat_id">{{ url }}</span>
 <ul id="message_list">
     {% for message in messages %}
 
-    <li>{{ message['creator'] }} {{ message['time_stamp'] }}: {{ message['content'] }}</li>
+    <li class="message">{{ message['creator'] }} {{ message['time_stamp'] }}: {{ message['content'] }}</li>
 
     {% endfor %}
 </ul>
-<form id="new_message">
+<form id="new_message" autocomplete="off">
 <input type="text" id="message_box" placeholder="Enter a message">
 <input type="submit" id="enter">
 </form>
