@@ -25,9 +25,19 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // gets values for creator, time_stamp, and content
             const creator = localStorage.getItem('username');
-            const time_stamp = new Date();
+            const time = new Date();
             const content = document.querySelector('#message_box').value;
             const chatroom_url = localStorage.getItem('latest_chatroom');
+            
+            // format the time_stamp nicer
+            const time_formatted = '';
+            const time_stamp = time_formatted.concat(String(time.getMonth()+1), '/',
+                                           String(time.getDay()), '/',
+                                           String(time.getFullYear()), ' ',
+                                           String(time.getHours()), ':',
+                                           String(time.getMinutes()), ":",
+                                           String(time.getSeconds())
+                                                     );
             
             // emits an event 'new message'
             socket.emit('new message', {
@@ -42,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     socket.on('update message list', data => {
-        document.querySelector('#message_list').innerHTML += `<li>${ data.creator } ${ data.time_stamp }:${ data.content }</li>`;
+        document.querySelector('#message_list').innerHTML += `<li>${ data.creator } ${ data.time_stamp }: ${ data.content }</li>`;
         
         document.querySelector('#message_box').value='';
                    document.querySelector('#enter').disabled=true;

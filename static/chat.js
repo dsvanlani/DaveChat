@@ -25,7 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
                   // gets values for chatroom_name, creator, and date_created
                   const chatroom_name = document.querySelector('#chatroom_name').value;
                   const creator = localStorage.getItem('username')
-                  const date_created = new Date()
+                  const time = new Date()
+                  
+                  const time_formatted = '';
+                  const date_created = time_formatted.concat(String(time.getMonth()+1), '/',
+                                                 String(time.getDay()), '/',
+                                                 String(time.getFullYear()), ' ',
+                                                 String(time.getHours()), ':',
+                                                 String(time.getMinutes()), ":",
+                                                 String(time.getSeconds())
+                                                           );
+                  
                   
                   // makes array chat_list containing names of all the chatrooms
                   let chat_list = []
