@@ -60,7 +60,6 @@ def new_chatroom(data):
 def room(url):
     return f' {chat_dict[url].json}'
 
-
 # Runs the app in Debug mode
 if __name__ == '__main__':
     app.run(debug=True)
