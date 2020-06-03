@@ -1,12 +1,25 @@
 #messages_container {
   margin: 10px;
   padding: 3px;
-  width: 500px;
   height: 200px;
   overflow: scroll;
-  background-color: grey;
-  color: white;
-  scrollbar-base-color: grey;
+  overflow-x: hidden;
+}
+
+#chatrooms_container {
+  height: 200px;
+  margin: 10px;
+  padding: 3px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #2E3532;
+}
+
+h1 {
+  text-align: center;
 }
 
 form {
@@ -15,10 +28,6 @@ form {
 
 #message_box {
   width: 400px;
-}
-
-#enter {
-  width: 100px;
 }
 
 /*# sourceMappingURL=style_sheet.css.map */

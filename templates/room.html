@@ -10,11 +10,19 @@
 {% block body %}
 
 <div class="container">
-    <div class="col">
+    <div class="row">
+        <div class="col">
             <h1>{{ chatroom_name }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col"
             <h6>Created by {{ creator }} on {{ date_created }}</h6>
-            <h7>URL: /chat/<span id="chat_id">{{ url }}</span></h7>
-            <div class="row">
+            <h6>URL: /chat/<span id="chat_id">{{ url }}</span></h6>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-9">
                 <div id="messages_container">
                     <div id="message_list">
                         {% for message in messages %}
@@ -24,13 +32,24 @@
                         {% endfor %}
                     </div>
                 </div>
+                <form id="new_message" autocomplete="off">
+                    <input type="text" id="message_box" placeholder="Enter a message">
+                    <input type="submit" id="enter">
+                </form>
             </div>
-
-        <div class="row">
-            <form id="new_message" autocomplete="off">
-            <input type="text" id="message_box" placeholder="Enter a message">
-            <input type="submit" id="enter">
-            </form>
+        <div class="col-3">
+            <div id="chatrooms_container">
+                <b>Available Chats:</b>
+                <ul id="chatroom_list">
+                    {% for chatroom in chat_list %}
+                        <li><a href="/chat/{{ chatroom['url']}}" class="chatroom">{{ chatroom['chatroom_name'] }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+                <form>
+                    <input type="text" placeholder="Start a new Chatroom" id="chatroom_name" autocomplete="off">
+                    <button id="new_chat">New Chat</button>
+                </form>
         </div>
     </div>
 </div>

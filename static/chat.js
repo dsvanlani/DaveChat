@@ -76,3 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
           });
       });
 });
+
+// Redirects the page to /chat if localStorage['username'] is set
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('username') && localStorage.getItem('latest_chatroom')) {
+        window.location.href=`/chat/${ localStorage.getItem('latest_chatroom') }`;
+    };
+    
+});
+

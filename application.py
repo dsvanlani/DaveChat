@@ -1,8 +1,9 @@
 import os
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from secrets import token_urlsafe as make_url
+
 
 class Chatroom:
     def __init__(self, creator, date_created, chatroom_name):
@@ -20,6 +21,7 @@ class Chatroom:
             'messages': self.messages
         }
 
+
 class Message:
     def __init__(self, creator, time_stamp, content):
         self.creator = creator
@@ -30,6 +32,7 @@ class Message:
                      'time_stamp': time_stamp,
                      'content': content}
 
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
@@ -37,23 +40,28 @@ socketio = SocketIO(app)
 chat_list = []
 chat_dict = {}
 
+
 @app.route("/")
 def index():
     return render_template('index.html')
+
 
 @app.route("/chat")
 def chat():
     return render_template('chat.html', chat_list=chat_list)
 
+
 @app.route('/chat/<string:url>')
 def room(url):
     return render_template('room.html',
                            chatroom_name=chat_dict[url].chatroom_name,
-                           creator = chat_dict[url].creator,
-                           date_created = chat_dict[url].date_created,
-                           messages = chat_dict[url].messages,
-                           url = url
+                           creator=chat_dict[url].creator,
+                           date_created=chat_dict[url].date_created,
+                           messages=chat_dict[url].messages,
+                           url=url,
+                           chat_list=chat_list
                            )
+
 
 @socketio.on('new chatroom')
 def new_chatroom(data):
@@ -70,11 +78,12 @@ def new_chatroom(data):
     # emits the new chat_list dictionary
     emit("update chat list", chatroom.json, broadcast=True)
 
+
 @socketio.on('new message')
 def new_message(data):
     # creates a new Message object
     message = Message(
-        creator = data['creator'],
+        creator=data['creator'],
         time_stamp=data['time_stamp'],
         content=data['content'])
 
@@ -85,11 +94,9 @@ def new_message(data):
     if len(obj.messages) > 100:
         del obj.messages[0]
 
-
     emit("update message list", message.json, broadcast=True)
 
 
 # Runs the app in Debug mode
 if __name__ == '__main__':
     app.run(debug=True)
-
