@@ -80,15 +80,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
         // initially set button to disabled
-        document.querySelector('button').disabled=true;
+        document.querySelector('#new_chat').disabled=true;
 
         // activates button after key up and if length is > 0
         document.querySelector('#chatroom_name').onkeyup = () => {
         if (document.querySelector('#chatroom_name').value.length > 0) {
-            document.querySelector('button').disabled=false;
+            document.querySelector('#new_chat').disabled=false;
             }
         else {
-            document.querySelector('button').disabled=true;
+            document.querySelector('#new_chat').disabled=true;
             }
         }
 
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       socket.on('connect', () => {
 
           // button click emits a 'new chatroom' event
-          document.querySelectorAll('button').forEach(button => {
+          document.querySelectorAll('#new_chat').forEach(button => {
               button.onclick = () => {
 
                   // gets values for chatroom_name, creator, and date_created
@@ -147,11 +147,11 @@ document.addEventListener('DOMContentLoaded', () => {
           socket.on('update chat list', data => {
 
               // appends onto the <ul id="chat_list">
-              document.querySelector('#chatroom_list').innerHTML += `<li> <a href="/chat/${ data.url }" class="chatroom"> ${data.chatroom_name} </a></li>`;
+              document.querySelector('#chatroom_list').innerHTML += `<span class="chatroom"><a href="/chat/${ data.url }" class="dropdown-item"> ${data.chatroom_name} </a></span><br>`;
 
               // resets the text box and button
               document.querySelector('#chatroom_name').value='';
-              document.querySelector('button').disabled=true;
+              document.querySelector('#new_chat').disabled=true;
 
           });
       });

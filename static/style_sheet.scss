@@ -2,7 +2,7 @@ $primary-color: #2E3532;
 $secondary-color: #7E9181;
 $tertiary-color: #C7CEDB;
 $accent-color: #94849B;
-$background-color: #A0AAB2;
+$background-color: #f8f7fc;
 
 
 #messages_container {
@@ -11,39 +11,107 @@ $background-color: #A0AAB2;
         height:200px;
         overflow:scroll;
         overflow-x:hidden;
-        border: 2px solid black;
+        border: 1px solid black;
 }
 
 
 #chatrooms_container {
         height:200px;
         margin: 10px;
-        padding:3px;
         overflow:scroll;
         overflow-x:hidden;
-         border: 2px solid black;
+         border: 1px solid black;
         }
 
 h1, h2, h3, h4, h5, h6 {
-        color: $primary-color
+        color: $primary-color;
+        margin: 10px;
 }
-
-h1 {
-        text-align: center;
-        }
 
 form {
         margin:10px;
+        padding: 5px;
 }
 
 
 #message_box {
-        width: 400px;
+        width: auto;
+        margin: 10px;
         }
 
 #enter {
+   width: auto;
+   margin: 10px;
         }
 
 .small_text {
-font-size: 10px;
+font-size: 9px;
+margin: 10px;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: $background-color;
+  height: 100%;
+
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 10px;
+  margin: auto;
+  background-color: white;
+  border: 1px solid black;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+
+#chatrooms_container {
+    background-color: white;
+    padding: 5px;
+    border: 1px solid black;
+       width: auto;
+        margin: 10px;
+}
+
+#messages_container {
+    background-color: white;
+    padding: 5px;
+    border: 1px solid black;
+       width: auto;
+        margin: 10px;
+}
+
+button {
+    margin: 10px;
+}
+
+#chatroom_name {
+   width: auto;
+        margin: 10px;
+        }
+
+#username {
+margin: 10px;
+}
+
+#chatroom_title {
+margin: 10px;
 }

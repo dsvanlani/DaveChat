@@ -3,52 +3,76 @@
 {% block script %}
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
     <script src=" {{ url_for('static', filename='room.js') }}"></script>
+    <style>
+        @media screen and (min-width: 0px) and (max-width: 992px) {
+              #chatroom_column { display: none; }
+            }
+
+        @media screen and (min-width: 992px) and (max-width: 4000px) {
+          #dropdownMenuButton { display: none; }
+            }
+    </style>
 {% endblock %}
+
 
 {% block title %}{{ chatroom_name }}{% endblock %}
 
 {% block body %}
 
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <h1>{{ chatroom_name }}</h1>
+    <div id="chatroom_title">
+        <div class="row">
+            <div class="col">
+                <h1>{{ chatroom_name }}</h1>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col"
-            <h6>Created by {{ creator }} on {{ date_created }}</h6>
-            <h6 class="small_text">URL: /chat/<span id="chat_id">{{ url }}</span></h6>
-        </div>
-    </div>
-    <div class="row">
-            <div class="col-9">
-                <div id="messages_container">
-                    <div id="message_list">
-                        {% for message in messages %}
-
-                        <span class="message">{{ message['creator'] }} {{ message['time_stamp'] }}: {{ message['content'] }}</span><br>
-
-                        {% endfor %}
-                    </div>
+        <div class="row">
+            <div class="col">
+                <h6>Created by {{ creator }} on {{ date_created }}</h6>
+                <h6 class="small_text">URL: /chat/<span id="chat_id">{{ url }}</span></h6>
+              <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Chatrooms
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <span id="chatroom_list">
+                                {% for chatroom in chat_list %}
+                                   <span class="chatroom"><a href="/chat/{{ chatroom['url']}}" class="dropdown-item">{{ chatroom['chatroom_name'] }}</a></span><br>
+                                {% endfor %}
+                            </span>
+                  </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col">
                 <form id="new_message" autocomplete="off">
-                    <input type="text" id="message_box" placeholder="Enter a message">
-                    <input type="submit" id="enter">
+                    <div id="messages_container">
+                        <div id="message_list">
+                            {% for message in messages %}
+
+                                <span class="message">{{ message['creator'] }} {{ message['time_stamp'] }}: {{ message['content'] }}</span><br>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                        <input type="text" id="message_box" placeholder="Enter a message">
+                        <input type="submit" id="enter" class="btn btn-primary">
                 </form>
             </div>
-        <div class="col-3">
-            <div id="chatrooms_container">
-                <b>Available Chats:</b>
-                <ul id="chatroom_list">
-                    {% for chatroom in chat_list %}
-                        <li><a href="/chat/{{ chatroom['url']}}" class="chatroom">{{ chatroom['chatroom_name'] }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-                <form>
+        <div class="col-4" id="chatroom_column">
+               <form>
+                    <div id="chatrooms_container">
+                        <b>Available Chats:</b><br>
+                        <span id="chatroom_list">
+                            {% for chatroom in chat_list %}
+                                <a href="/chat/{{ chatroom['url']}}" class="chatroom">{{ chatroom['chatroom_name'] }}</a><br>
+                            {% endfor %}
+                        </span>
+                    </div>
                     <input type="text" placeholder="Start a new Chatroom" id="chatroom_name" autocomplete="off">
-                    <button id="new_chat">New Chat</button>
+                    <button id="new_chat" class="btn btn-primary">Go</button>
                 </form>
         </div>
     </div>
