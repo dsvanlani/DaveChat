@@ -4,6 +4,7 @@
   height: 200px;
   overflow: scroll;
   overflow-x: hidden;
+  border: 2px solid black;
 }
 
 #chatrooms_container {
@@ -12,6 +13,7 @@
   padding: 3px;
   overflow: scroll;
   overflow-x: hidden;
+  border: 2px solid black;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -28,6 +30,10 @@ form {
 
 #message_box {
   width: 400px;
+}
+
+.small_text {
+  font-size: 10px;
 }
 
 /*# sourceMappingURL=style_sheet.css.map */

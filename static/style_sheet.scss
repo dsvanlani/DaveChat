@@ -11,6 +11,7 @@ $background-color: #A0AAB2;
         height:200px;
         overflow:scroll;
         overflow-x:hidden;
+        border: 2px solid black;
 }
 
 
@@ -20,6 +21,7 @@ $background-color: #A0AAB2;
         padding:3px;
         overflow:scroll;
         overflow-x:hidden;
+         border: 2px solid black;
         }
 
 h1, h2, h3, h4, h5, h6 {
@@ -42,3 +44,6 @@ form {
 #enter {
         }
 
+.small_text {
+font-size: 10px;
+}
