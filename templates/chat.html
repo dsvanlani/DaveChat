@@ -8,15 +8,23 @@
 {% endblock %}
 
 {% block body %}
-
-<h1>Chatroom Page</h1>
-<ul id="chatroom_list">
-    {% for chatroom in chat_list %}
-    <li><a href="/chat/{{ chatroom['url']}}" class="chatroom">{{ chatroom['chatroom_name'] }}</a></li>
-    {% endfor %}
-</ul>
-<br>
-<input type="text" placeholder="Start a new Chatroom" id="chatroom_name" autocomplete="off">
-<button id="new_chat">New Chat</button>
+<div class="container">
+    <div class="col">
+        <div class="row">
+            <h1>Chatroom Page</h1>
+        </div>
+        <div class="row">
+            <ul id="chatroom_list">
+                {% for chatroom in chat_list %}
+                <li><a href="/chat/{{ chatroom['url']}}" class="chatroom">{{ chatroom['chatroom_name'] }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="row">
+            <input type="text" placeholder="Start a new Chatroom" id="chatroom_name" autocomplete="off">
+            <button id="new_chat">New Chat</button>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

@@ -1,0 +1,24 @@
+#messages_container {
+  margin: 10px;
+  padding: 3px;
+  width: 500px;
+  height: 200px;
+  overflow: scroll;
+  background-color: grey;
+  color: white;
+  scrollbar-base-color: grey;
+}
+
+form {
+  margin: 10px;
+}
+
+#message_box {
+  width: 400px;
+}
+
+#enter {
+  width: 100px;
+}
+
+/*# sourceMappingURL=style_sheet.css.map */

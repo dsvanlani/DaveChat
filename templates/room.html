@@ -8,18 +8,30 @@
 {% block title %}{{ chatroom_name }}{% endblock %}
 
 {% block body %}
-<h1>{{ chatroom_name }}</h1>
-<h3>Created by {{ creator }} on {{ date_created }}</h3>
-Chat ID:<span id="chat_id">{{ url }}</span>
-<ul id="message_list">
-    {% for message in messages %}
 
-    <li class="message">{{ message['creator'] }} {{ message['time_stamp'] }}: {{ message['content'] }}</li>
+<div class="container">
+    <div class="col">
+            <h1>{{ chatroom_name }}</h1>
+            <h6>Created by {{ creator }} on {{ date_created }}</h6>
+            <h7>URL: /chat/<span id="chat_id">{{ url }}</span></h7>
+            <div class="row">
+                <div id="messages_container">
+                    <div id="message_list">
+                        {% for message in messages %}
 
-    {% endfor %}
-</ul>
-<form id="new_message" autocomplete="off">
-<input type="text" id="message_box" placeholder="Enter a message">
-<input type="submit" id="enter">
-</form>
+                        <span class="message">{{ message['creator'] }} {{ message['time_stamp'] }}: {{ message['content'] }}</span><br>
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        <div class="row">
+            <form id="new_message" autocomplete="off">
+            <input type="text" id="message_box" placeholder="Enter a message">
+            <input type="submit" id="enter">
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

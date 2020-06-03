@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // makes sure container is scrolled all the way down
+    var messageBody = document.querySelector('#messages_container');
+    messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     
     socket.on('connect', () => {
@@ -52,10 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
             // adds new message to the list
     socket.on('update message list', data => {
-        document.querySelector('#message_list').innerHTML += `<li class="message">${ data.creator } ${ data.time_stamp }: ${ data.content }</li>`;
-        
+        document.querySelector('#message_list').innerHTML += `<span class="message">${ data.creator } ${ data.time_stamp }: ${ data.content }</span><br>`;
+
+            // makes sure container is scrolled all the way down
+        var messageBody = document.querySelector('#messages_container');
+        messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+
             // checks to see if the length of messages is more than 100
-        
         const x = []
         document.querySelectorAll('.message').forEach(element => {
         x.push(element.innerText);

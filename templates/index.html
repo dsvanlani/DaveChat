@@ -7,12 +7,18 @@
 {% endblock %}
 
 {% block body %}
-<h1>Pick a username</h1>
-<form id="pick_username" autocomplete="off">
-    <input id="username" type="text" placeholder="Desired Username">
-    <input type="submit">
-</form>
-
-<span id="current_username"></span>
+<div class="container">
+    <div class="col">
+        <div class="row">
+            <h1>Pick a username</h1>
+        </div>
+        <div class="row">
+            <form id="pick_username" autocomplete="off">
+                <input id="username" type="text" placeholder="Desired Username">
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
