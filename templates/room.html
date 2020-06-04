@@ -8,7 +8,6 @@
     </style>
 {% endblock %}
 
-
 {% block title %}{{ chatroom_name }}{% endblock %}
 
 {% block body %}
@@ -60,27 +59,37 @@
                         <div id="message_list">
                             {% for message in messages %}
 
-                            <span class="creator-{{ message['creator'] }}"><span class="message">{{ message['creator'] }} {{ message['time_stamp'] }}: {{ message['content'] }}</span></span><br>
+                            <span class="creator-{{ message['creator'] }}">
+                                <span class="message" style="color: {{ message['color'] }};">
+                                    {{ message['creator'] }}<span class="timestamp"> {{ message['time_stamp'] }}</span>: {{ message['content'] }}
+                                </span>
+                            </span>
+                            <br>
 
                             {% endfor %}
                         </div>
                     </div>
+                    <div class="row justify-content-center">
                         <input type="text" id="message_box" placeholder="Enter a message">
                         <input type="submit" id="enter" class="btn btn-primary">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownColorButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown dropup">
+                        <button class="btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownColorButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Text Color
                         </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a href="#" data-color="black" class="dropdown-item">Black</a>
-                                <a href="#" data-color="red" class="dropdown-item">Red</a>
-                                <a href="#" data-color="blue" class="dropdown-item">Blue</a>
-                                <a href="#" data-color="green" class="dropdown-item">Green</a>
-                                <a href="#" data-color="gold" class="dropdown-item">Gold</a>
+                                <a onclick="change_text_color('black')" href="#" data-color="black" class="dropdown-item change-text-color">Black</a>
+                                <a onclick="change_text_color('red')" href="#" data-color="red" class="dropdown-item change-text-color">Red</a>
+                                <a onclick="change_text_color('blue')" href="#" data-color="blue" class="dropdown-item change-text-color">Blue</a>
+                                <a onclick="change_text_color('green')" href="#" data-color="green" class="dropdown-item change-text-color">Green</a>
+                                <a onclick="change_text_color('gold')" href="#" data-color="gold" class="dropdown-item change-text-color">Gold</a>
                             </div>
                     </div>
+                    <button onclick="toggle_timestamp()" class="btn-sm btn-secondary" type="button" id="toggle-timestamps">Toggle Timestamps</button>
                 </form>
+                </div>
             </div>
+        </div>
     </div>
 </div>
+
 {% endblock %}

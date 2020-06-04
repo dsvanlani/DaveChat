@@ -1,8 +1,39 @@
+function change_text_color(color) {
+    localStorage.setItem('text_color',color);
+    };
+
+function toggle_timestamp() {
+    if (localStorage.getItem('timestamps') == 'on') {
+        localStorage.setItem('timestamps','off');
+        document.querySelectorAll('.timestamp').forEach( text => {
+            text.style.display = "none";
+        });
+    }
+    else {
+            localStorage.setItem('timestamps','on');
+            document.querySelectorAll('.timestamp').forEach( text => {
+                text.style.display = '';
+                });
+        };
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // sets localStorage['latest_chatroom'] to the chat ID
     const url = document.querySelector('#chat_id').innerText;
     localStorage.setItem('latest_chatroom', url);
+    
+    // if localStorage['timestamps'] does not exist it initializes it on 'on'
+    if (!localStorage.getItem('timestamps')) {
+        localStorage.setItem('timestamps','on');
+    };
+    
+    // turns timestamps off if neccesary
+    if (localStorage.getItem('timestamps') == 'off') {
+        document.querySelectorAll('.timestamp').forEach( text => {
+            text.style.display = "none";
+        });
+    };
     
     // initially set button to disabled
     document.querySelector('#enter').disabled=true;
@@ -32,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const time = new Date();
             const content = document.querySelector('#message_box').value;
             const chatroom_url = localStorage.getItem('latest_chatroom');
+            const color = localStorage.getItem('text_color') || 'black'
             
             // format the time_stamp nicer
             const time_formatted = '';
@@ -48,7 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 'creator': creator,
                 'time_stamp': time_stamp,
                 'content': content,
-                'chatroom_url': chatroom_url});
+                'chatroom_url': chatroom_url,
+                'color': color
+            });
             
             return false
         };
@@ -58,11 +92,18 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('update message list', data => {
         
             // checks to see if message was for current chatroom
-        
-        console.log(data.url)
-        
         if (data.url == localStorage.getItem('latest_chatroom')) {
-            document.querySelector('#message_list').innerHTML += `<span class="creator-${ data.creator }"><span class="message">${ data.creator } ${ data.time_stamp }: ${ data.content }</span></span><br>`;
+            
+            // add in the html
+            document.querySelector('#message_list').innerHTML +=
+                `<span class="creator-${ data.creator }"><span class="message" style="color: ${ data.color };">${ data.creator }<span class="timestamp"> ${ data.time_stamp }</span>: ${ data.content }</span></span><br>`;
+        };
+        
+        // turns timestamps off if neccesary
+        if (localStorage.getItem('timestamps') == 'off') {
+            document.querySelectorAll('.timestamp').forEach( text => {
+                text.style.display = "none";
+            });
         };
 
             // makes sure container is scrolled all the way down
@@ -163,3 +204,4 @@ document.addEventListener('DOMContentLoaded', () => {
           });
       });
 });
+

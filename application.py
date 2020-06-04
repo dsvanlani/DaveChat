@@ -1,4 +1,5 @@
 import os
+from typing import List, Any
 
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
@@ -6,6 +7,7 @@ from secrets import token_urlsafe as make_url
 
 
 class Chatroom:
+
     def __init__(self, creator, date_created, chatroom_name):
         self.creator = creator
         self.date_created = date_created
@@ -23,16 +25,18 @@ class Chatroom:
 
 
 class Message:
-    def __init__(self, creator, time_stamp, content, url):
+    def __init__(self, creator, time_stamp, content, url, color='black'):
         self.creator = creator
         self.time_stamp = time_stamp
         self.content = content
         self.url = url
-        self.data = [creator, time_stamp, content]
+        self.color = color
+        self.data = [creator, time_stamp, content, color]
         self.json = {'creator': creator,
                      'time_stamp': time_stamp,
                      'content': content,
-                     'url': url}
+                     'url': url,
+                     'color': color}
 
 
 app = Flask(__name__)
@@ -88,7 +92,8 @@ def new_message(data):
         creator=data['creator'],
         time_stamp=data['time_stamp'],
         content=data['content'],
-        url=data['chatroom_url'])
+        url=data['chatroom_url'],
+        color=data['color'])
 
     # adds the message.data to the chatroom messages list
     obj = chat_dict[data['chatroom_url']]
