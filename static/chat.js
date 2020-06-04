@@ -29,12 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
                   
                   const time_formatted = '';
                   const date_created = time_formatted.concat(String(time.getMonth()+1), '/',
-                                                 String(time.getDay()), '/',
-                                                 String(time.getFullYear()), ' ',
-                                                 String(time.getHours()), ':',
-                                                 String(time.getMinutes()), ":",
-                                                 String(time.getSeconds())
-                                                           );
+                                                             String(time.getDay()), '/',
+                                                             String(time.getFullYear()), ' ',
+                                                             String(time.getHours()).padStart(2,'0'), ':',
+                                                             String(time.getMinutes()).padStart(2,'0'), ":",
+                                                             String(time.getSeconds()).padStart(2,'0')
+                                                             );
                   
                   
                   // makes array chat_list containing names of all the chatrooms

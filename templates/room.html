@@ -4,13 +4,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
     <script src=" {{ url_for('static', filename='room.js') }}"></script>
     <style>
-        @media screen and (min-width: 0px) and (max-width: 992px) {
-              #chatroom_column { display: none; }
-            }
 
-        @media screen and (min-width: 992px) and (max-width: 4000px) {
-          #dropdownMenuButton { display: none; }
-            }
     </style>
 {% endblock %}
 
@@ -21,28 +15,42 @@
 
 <div class="container">
     <div id="chatroom_title">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col">
                 <h1>{{ chatroom_name }}</h1>
             </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col">
                 <h6>Created by {{ creator }} on {{ date_created }}</h6>
                 <h6 class="small_text">URL: /chat/<span id="chat_id">{{ url }}</span></h6>
-              <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Chatrooms
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                <div class="row justify-content-center">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Chatrooms
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <span id="chatroom_list">
                                 {% for chatroom in chat_list %}
                                    <span class="chatroom"><a href="/chat/{{ chatroom['url']}}" class="dropdown-item">{{ chatroom['chatroom_name'] }}</a></span><br>
                                 {% endfor %}
                             </span>
+                        </div>
+                    </div>
+
+                  <div class="dropdown">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownNewChatButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Start New Chat
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <form>
+                                <input type="text" placeholder="Start new chat" id="chatroom_name" autocomplete="off">
+                                <button id="new_chat" class="btn btn-primary">Go</button>
+                          </form>
+                      </div>
                   </div>
                 </div>
-            </div>
         </div>
     </div>
     <div class="row">
@@ -52,29 +60,27 @@
                         <div id="message_list">
                             {% for message in messages %}
 
-                                <span class="message">{{ message['creator'] }} {{ message['time_stamp'] }}: {{ message['content'] }}</span><br>
+                            <span class="creator-{{ message['creator'] }}"><span class="message">{{ message['creator'] }} {{ message['time_stamp'] }}: {{ message['content'] }}</span></span><br>
 
                             {% endfor %}
                         </div>
                     </div>
                         <input type="text" id="message_box" placeholder="Enter a message">
                         <input type="submit" id="enter" class="btn btn-primary">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownColorButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Text Color
+                        </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a href="#" data-color="black" class="dropdown-item">Black</a>
+                                <a href="#" data-color="red" class="dropdown-item">Red</a>
+                                <a href="#" data-color="blue" class="dropdown-item">Blue</a>
+                                <a href="#" data-color="green" class="dropdown-item">Green</a>
+                                <a href="#" data-color="gold" class="dropdown-item">Gold</a>
+                            </div>
+                    </div>
                 </form>
             </div>
-        <div class="col-4" id="chatroom_column">
-               <form>
-                    <div id="chatrooms_container">
-                        <b>Available Chats:</b><br>
-                        <span id="chatroom_list">
-                            {% for chatroom in chat_list %}
-                                <a href="/chat/{{ chatroom['url']}}" class="chatroom">{{ chatroom['chatroom_name'] }}</a><br>
-                            {% endfor %}
-                        </span>
-                    </div>
-                    <input type="text" placeholder="Start a new Chatroom" id="chatroom_name" autocomplete="off">
-                    <button id="new_chat" class="btn btn-primary">Go</button>
-                </form>
-        </div>
     </div>
 </div>
 {% endblock %}

@@ -23,14 +23,16 @@ class Chatroom:
 
 
 class Message:
-    def __init__(self, creator, time_stamp, content):
+    def __init__(self, creator, time_stamp, content, url):
         self.creator = creator
         self.time_stamp = time_stamp
         self.content = content
+        self.url = url
         self.data = [creator, time_stamp, content]
         self.json = {'creator': creator,
                      'time_stamp': time_stamp,
-                     'content': content}
+                     'content': content,
+                     'url': url}
 
 
 app = Flask(__name__)
@@ -85,7 +87,8 @@ def new_message(data):
     message = Message(
         creator=data['creator'],
         time_stamp=data['time_stamp'],
-        content=data['content'])
+        content=data['content'],
+        url=data['chatroom_url'])
 
     # adds the message.data to the chatroom messages list
     obj = chat_dict[data['chatroom_url']]

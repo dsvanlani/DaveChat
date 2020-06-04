@@ -1,6 +1,5 @@
 #messages_container {
   margin: 10px;
-  padding: 3px;
   height: 200px;
   overflow: scroll;
   overflow-x: hidden;
@@ -16,7 +15,6 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #2E3532;
   margin: 10px;
 }
 
@@ -26,12 +24,10 @@ form {
 }
 
 #message_box {
-  width: auto;
   margin: 10px;
 }
 
 #enter {
-  width: auto;
   margin: 10px;
 }
 
@@ -47,7 +43,7 @@ body {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #f8f7fc;
+  background-color: #fffcf2;
   height: 100%;
 }
 
@@ -89,7 +85,6 @@ body {
   padding: 5px;
   border: 1px solid black;
   width: auto;
-  margin: 10px;
 }
 
 button {
@@ -106,7 +101,11 @@ button {
 }
 
 #chatroom_title {
-  margin: 10px;
+  margin: 20px;
+}
+
+#chatroom_name {
+  width: auto;
 }
 
 /*# sourceMappingURL=style_sheet.css.map */

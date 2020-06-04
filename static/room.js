@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const time_stamp = time_formatted.concat(String(time.getMonth()+1), '/',
                                            String(time.getDay()), '/',
                                            String(time.getFullYear()), ' ',
-                                           String(time.getHours()), ':',
-                                           String(time.getMinutes()), ":",
-                                           String(time.getSeconds())
+                                           String(time.getHours()).padStart(2,'0'), ':',
+                                           String(time.getMinutes()).padStart(2,'0'), ":",
+                                           String(time.getSeconds()).padStart(2,'0')
                                                      );
             
             // emits an event 'new message'
@@ -54,9 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
         };
             
     });
-            // adds new message to the list
+        
     socket.on('update message list', data => {
-        document.querySelector('#message_list').innerHTML += `<span class="message">${ data.creator } ${ data.time_stamp }: ${ data.content }</span><br>`;
+        
+            // checks to see if message was for current chatroom
+        
+        console.log(data.url)
+        
+        if (data.url == localStorage.getItem('latest_chatroom')) {
+            document.querySelector('#message_list').innerHTML += `<span class="creator-${ data.creator }"><span class="message">${ data.creator } ${ data.time_stamp }: ${ data.content }</span></span><br>`;
+        };
 
             // makes sure container is scrolled all the way down
         var messageBody = document.querySelector('#messages_container');
@@ -111,9 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
                   const date_created = time_formatted.concat(String(time.getMonth()+1), '/',
                                                  String(time.getDay()), '/',
                                                  String(time.getFullYear()), ' ',
-                                                 String(time.getHours()), ':',
-                                                 String(time.getMinutes()), ":",
-                                                 String(time.getSeconds())
+                                                 String(time.getHours()).padStart(2,'0'), ':',
+                                                 String(time.getMinutes()).padStart(2,'0'), ":",
+                                                 String(time.getSeconds()).padStart(2,'0')
                                                            );
 
 
