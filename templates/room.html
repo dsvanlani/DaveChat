@@ -32,7 +32,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <span id="chatroom_list">
                                 {% for chatroom in chat_list %}
-                                   <span class="chatroom"><a href="/chat/{{ chatroom['url']}}" class="dropdown-item">{{ chatroom['chatroom_name'] }}</a></span><br>
+                                   <span class="chatroom"><a href="/chat/{{ chatroom['url']}}" class="dropdown-item">{{ chatroom['chatroom_name'] }}</a></span>
                                 {% endfor %}
                             </span>
                         </div>

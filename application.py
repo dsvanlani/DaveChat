@@ -1,5 +1,4 @@
 import os
-from typing import List, Any
 
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
@@ -43,7 +42,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
-chat_list = []
+chat_list: []
 chat_dict = {}
 
 
