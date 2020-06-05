@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
           socket.on('update chat list', data => {
               
               // appends onto the <ul id="chat_list">
-              document.querySelector('#chatroom_list').innerHTML += `<li> <a href="/chat/${ data.url }" class="chatroom"> ${data.chatroom_name} </a></li>`;
+              document.querySelector('#chatroom_list').innerHTML += `<a href="/chat/${ data.url }" class="chatroom list-group-item"> ${data.chatroom_name}</a>`;
               
               // resets the text box and button
               document.querySelector('#chatroom_name').value='';

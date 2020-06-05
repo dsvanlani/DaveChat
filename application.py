@@ -42,7 +42,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
-chat_list: []
+chat_list = []
 chat_dict = {}
 
 
@@ -58,7 +58,7 @@ def chat():
 
 @app.route('/chat/<string:url>')
 def room(url):
-    return render_template('room.html',
+    return render_template('room-v2.html',
                            chatroom_name=chat_dict[url].chatroom_name,
                            creator=chat_dict[url].creator,
                            date_created=chat_dict[url].date_created,

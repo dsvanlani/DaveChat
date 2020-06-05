@@ -3,9 +3,6 @@
 {% block script %}
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
     <script src=" {{ url_for('static', filename='room.js') }}"></script>
-    <style>
-
-    </style>
 {% endblock %}
 
 {% block title %}{{ chatroom_name }}{% endblock %}
@@ -71,7 +68,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <input type="text" id="message_box" placeholder="Enter a message">
-                        <input type="submit" id="enter" class="btn btn-primary">
+                        <button type="submit" id="enter" class="btn btn-primary">Enter</button>
                     <div class="dropdown dropup">
                         <button class="btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownColorButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Text Color

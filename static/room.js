@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     
-    // initially set button to disabled
+    // initially sets enter button to disabled
     document.querySelector('#enter').disabled=true;
     
     // activates button after key up and if length is > 0
@@ -56,7 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
     socket.on('connect', () => {
         
-        document.querySelector('#new_message').onsubmit = () => {
+        var input = document.getElementById("message_box")
+        
+        input.addEventListener("keyup", function(event) {
+          // Number 13 is the "Enter" key on the keyboard
+          if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("enter").click();
+          }
+        });
+        
+        document.querySelector('#enter').onclick = () => {
             
             // gets values for creator, time_stamp, and content
             const creator = localStorage.getItem('username');

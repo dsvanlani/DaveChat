@@ -9,22 +9,24 @@
 
 {% block body %}
 <div class="container">
-    <div class="col">
-        <div class="row">
-            <form class="form-signin">
-                <h3>Chatrooms:</h3>
-                <ul id="chatroom_list">
-                    {% if chat_list %}
-                        {% for chatroom in chat_list %}
-                            <li><a href="/chat/{{ chatroom['url']}}" class="chatroom">{{ chatroom['chatroom_name'] }}</a></li>
-                        {% endfor %}
-                    {% else %}
-                        <li>No existing chatrooms - please start one.</li>
-                    {% endif %}
-                </ul>
-                <input type="text" placeholder="Start a new Chatroom" id="chatroom_name" autocomplete="off">
-                <button id="new_chat" class="btn btn-primary">New Chat</button>
-            </form>
+    <div class="row justify-content-center">
+        <img src="{{ url_for('static', filename='logo_transparent.png') }}" id="logo_image">
+    </div>
+    <div class="row justify-content-center">
+        <form>
+            <input type="text" placeholder="Start a new Chatroom" id="chatroom_name" autocomplete="off"><br>
+            <button id="new_chat" class="btn btn-primary">New Chat</button>
+        </form>
+    </div>
+    <div class="row justify-content-center">
+        <div id="chatroom_list" class="list-group">
+                {% if chat_list %}
+                    {% for chatroom in chat_list %}
+                        <a href="/chat/{{ chatroom['url']}}" class="chatroom list-group-item list-group-item-action">{{ chatroom['chatroom_name'] }}</a>
+                    {% endfor %}
+                {% else %}
+                    No existing chatrooms - please start one.
+                {% endif %}
         </div>
     </div>
 </div>

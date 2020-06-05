@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+
+{% block script %}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script src=" {{ url_for('static', filename='room.js') }}"></script>
+{% endblock %}
+
+{% block title %}{{ chatroom_name }}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <!-- Nav bar -->
+    <nav class="nav justify-content-end">
+        <a class="nav-item nav-link disabled" href="#">{{ chatroom_name }}</a>
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Chatrooms</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <span id="chatroom_list">
+                    {% for chatroom in chat_list %}
+                       <span class="chatroom"><a href="/chat/{{ chatroom['url']}}" class="dropdown-item">{{ chatroom['chatroom_name'] }}</a></span>
+                    {% endfor %}
+                </span>
+            </div>
+        </div>
+
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                Create New Chatroom</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <form>
+                    <input type="text" placeholder="Start new chat" id="chatroom_name" autocomplete="off">
+                    <button id="new_chat" class="btn btn-primary">Create Chatroom</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- End Nav bar -->
+    <!-- Logo -->
+    <div class="row justify-content-center">
+        <img src="{{ url_for('static', filename='logo_transparent.png') }}" id="logo_image">
+    </div>
+
+    <!-- Message Box -->
+    <div class="row justify-content-center">
+        <div id="messages_container">
+            <p class="small_text">URL: /chat/<span id="chat_id">{{ url }}</span></p>
+            <div id="message_list">
+                {% for message in messages %}
+                <span class="creator-{{ message['creator'] }}">
+                    <span class="message" style="color: {{ message['color'] }};">
+                        {{ message['creator'] }}<span class="timestamp"> {{ message['time_stamp'] }}</span>: {{ message['content'] }}<br>
+                    </span>
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- Input Box -->
+        <input type="text" id="message_box" placeholder="Enter a message" autocomplete="off">
+        <input type="submit" id="enter" class="btn btn-primary">
+    </div>
+    <div class="row justify-content-end">
+            <div class="dropdown dropup">
+                <button class="btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownColorButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Text Color
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a onclick="change_text_color('black')" href="#" data-color="black" class="dropdown-item change-text-color">Black</a>
+                    <a onclick="change_text_color('red')" href="#" data-color="red" class="dropdown-item change-text-color">Red</a>
+                    <a onclick="change_text_color('blue')" href="#" data-color="blue" class="dropdown-item change-text-color">Blue</a>
+                    <a onclick="change_text_color('green')" href="#" data-color="green" class="dropdown-item change-text-color">Green</a>
+                    <a onclick="change_text_color('gold')" href="#" data-color="gold" class="dropdown-item change-text-color">Gold</a>
+                </div>
+            </div>
+            <button onclick="toggle_timestamp()" class="btn-sm btn-secondary" type="button" id="toggle-timestamps">Toggle Timestamps</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+{% endblock %}
