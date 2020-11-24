@@ -107,3 +107,4 @@ def new_message(data):
 
 if __name__ == '__main__':
     app.run(debug=False)
+    socketio.run(app)
