@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flask_socketio import SocketIO, emit
 from secrets import token_urlsafe as make_url
 
@@ -59,13 +59,13 @@ def chat():
 @app.route('/chat/<string:url>')
 def room(url):
     return render_template('room-v2.html',
-                           chatroom_name=chat_dict[url].chatroom_name,
-                           creator=chat_dict[url].creator,
-                           date_created=chat_dict[url].date_created,
-                           messages=chat_dict[url].messages,
-                           url=url,
-                           chat_list=chat_list
-                           )
+                        chatroom_name=chat_dict[url].chatroom_name,
+                        creator=chat_dict[url].creator,
+                        date_created=chat_dict[url].date_created,
+                        messages=chat_dict[url].messages,
+                        url=url,
+                        chat_list=chat_list
+                        )
 
 
 @socketio.on('new chatroom')

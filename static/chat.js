@@ -79,9 +79,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Redirects the page to /chat if localStorage['username'] is set
 document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('username') && localStorage.getItem('latest_chatroom')) {
-        window.location.href=`/chat/${ localStorage.getItem('latest_chatroom') }`;
-    };
-    
+
+    // If Username is not set, redirect to index
+    if (!localStorage.getItem('username')) {
+        window.location.replace('/')
+    }
+    // If there is a latest_chatroom set in Local Storage, this checks to see if chatroom still exists
+    // and if not it clears the value.
+    if (localStorage['latest_chatroom']) {
+        fetch(`/chat/${localStorage['latest_chatroom']}`)
+        .then(response => {
+            if (response.status != 200) {
+                localStorage.removeItem('latest_chatroom')
+            } else {
+                window.location.replace(`/chat/${localStorage.getItem('latest_chatroom')}`)
+            }
+        })
+    }
 });
 
