@@ -1,4 +1,5 @@
 # Project 2
+This is a Python Flask app that allows users to pick a username - create a Chatroom, and then chat with other user using a Web Socket, specifically flask_socketio.
 
 # Contents
 
