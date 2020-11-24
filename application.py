@@ -104,6 +104,6 @@ def new_message(data):
     emit("update message list", message.json, broadcast=True)
 
 
-# Runs the app in Debug mode
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
